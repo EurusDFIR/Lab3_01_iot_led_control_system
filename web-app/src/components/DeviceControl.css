@@ -1,0 +1,204 @@
+.device-control {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.control-header h2 {
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.status-badge {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.status-badge.on {
+  background: #4caf50;
+  color: white;
+}
+
+.status-badge.online {
+  background: #2196f3;
+  color: white;
+}
+
+.status-badge.off {
+  background: #ff9800;
+  color: white;
+}
+
+.status-badge.offline {
+  background: #9e9e9e;
+  color: white;
+}
+
+.device-details {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-item .label {
+  font-weight: 600;
+  color: #666;
+}
+
+.detail-item .value {
+  color: #333;
+}
+
+.control-panel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.control-panel h3 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.control-buttons button {
+  flex: 1;
+  max-width: 200px;
+  padding: 20px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-on {
+  background: #4caf50;
+  color: white;
+}
+
+.btn-on:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+}
+
+.btn-off {
+  background: #f44336;
+  color: white;
+}
+
+.btn-off:hover:not(:disabled) {
+  background: #da190b;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(244, 67, 54, 0.4);
+}
+
+.control-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading-text {
+  color: white;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+.command-history {
+  margin-top: 30px;
+}
+
+.command-history h3 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.no-history {
+  text-align: center;
+  color: #999;
+  padding: 40px;
+}
+
+.command-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.command-history th {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #666;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.command-history td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.command-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+}
+
+.command-badge.on {
+  background: #4caf50;
+}
+
+.command-badge.off {
+  background: #f44336;
+}
+
+@media (max-width: 768px) {
+  .control-buttons {
+    flex-direction: column;
+  }
+
+  .control-buttons button {
+    max-width: 100%;
+  }
+}
