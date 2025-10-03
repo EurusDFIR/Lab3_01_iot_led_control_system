@@ -3,8 +3,8 @@
 ## Bạn đã cấu hình WiFi trong ESP32 ✅
 
 ```cpp
-const char *ssid = "LE HUNG";       // ✅
-const char *password = "123456789"; // ✅
+const char *ssid = "";       // ✅
+const char *password = ""; // ✅
 ```
 
 ## Còn 2 việc cần làm:

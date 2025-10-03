@@ -153,11 +153,13 @@ flutter run
 ### Trước khi push lên GitHub:
 
 1. **Xóa thông tin nhạy cảm:**
+
    - WiFi SSID/Password trong ESP32 code ✅ (đã làm)
    - Database passwords
    - API keys/tokens
 
 2. **Sử dụng template config:**
+
    ```bash
    cp backend/src/main/resources/application-template.properties backend/src/main/resources/application-local.properties
    ```
