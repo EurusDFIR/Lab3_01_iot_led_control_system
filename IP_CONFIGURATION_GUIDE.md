@@ -37,8 +37,8 @@ Wireless LAN adapter Wi-Fi:
 
 ```cpp
 // Bạn đã cập nhật:
-const char *ssid = "LE HUNG";       // ✅ OK
-const char *password = "123456789"; // ✅ OK
+const char *ssid = "";       // ✅ OK
+const char *password = ""; // ✅ OK
 
 // CẦN CẬP NHẬT IP này thành IP máy tính bạn:
 const char *mqtt_server = "192.168.1.10"; // ⚠️ Thay bằng IP của BẠN
