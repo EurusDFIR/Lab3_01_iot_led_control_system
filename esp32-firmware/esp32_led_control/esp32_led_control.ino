@@ -16,8 +16,8 @@
 #include <ArduinoJson.h>
 
 // ===== CẤU HÌNH WIFI =====
-const char *ssid = "";     // ✅ Tên WiFi của bạn
-const char *password = ""; // ✅ Mật khẩu WiFi
+const char *ssid = "LE HUNG";       // ✅ Tên WiFi của bạn
+const char *password = "123456789"; // ✅ Mật khẩu WiFi
 
 // ===== CẤU HÌNH MQTT =====
 // ⚠️ QUAN TRỌNG: Thay IP này bằng IP máy tính chạy EMQX

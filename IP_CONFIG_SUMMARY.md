@@ -68,8 +68,8 @@ static const String baseUrl = 'http://192.168.1.25:8080/api'; // VD
 - [ ] Đã tìm IP máy tính (bằng `ipconfig` hoặc `find-ip.bat`)
 - [ ] Đã cập nhật IP trong `esp32_led_control.ino` line 26
 - [ ] Đã cập nhật IP trong `api_service.dart` line 9
-- [ ] WiFi SSID = "LE HUNG" ✅
-- [ ] WiFi Password = "123456789" ✅
+- [ ] WiFi SSID = "" ✅
+- [ ] WiFi Password = "" ✅
 - [ ] Backend application.properties KHÔNG CẦN đổi ✅
 
 ---
@@ -81,8 +81,8 @@ Giả sử IP máy bạn là: **192.168.1.25**
 ### ESP32:
 
 ```cpp
-const char *ssid = "LE HUNG";
-const char *password = "123456789";
+const char *ssid = "";//ten wifi
+const char *password = "";//pass
 const char *mqtt_server = "192.168.1.25";  // 👈 Đổi thành IP này
 ```
 
