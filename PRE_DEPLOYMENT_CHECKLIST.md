@@ -20,24 +20,44 @@
 - [x] CONFIG_TEMPLATE.md hướng dẫn thay IP
 - [x] Mobile app dùng 10.0.2.2 cho Android emulator
 
-### 4. Dependencies
+### 4. Dependencies (Phiên bản chính xác)
 
-- [x] Backend: Spring Boot 3.1.5, PostgreSQL, MQTT
-- [x] Web App: React 18, Axios, React Router
-- [x] Mobile App: Flutter 3.0+, HTTP, Provider, Local Notifications
+- [x] Backend: Spring Boot 3.1.5, Java 17, PostgreSQL, MQTT
+- [x] Web App: React 18.2.0, Node.js 16.14.0+, npm 8.0+
+- [x] Mobile App: Flutter 3.35.5, Dart 3.0.0+, HTTP, Provider, Local Notifications
 - [x] ESP32: WiFi, PubSubClient, ArduinoJson, DHT
+- [x] Docker: PostgreSQL 15, EMQX 5.0
 
-### 5. Documentation
+### 5. Version Verification
+
+```bash
+# Java 17
+java -version  # Should show 17.x.x
+
+# Node.js 16.14.0+
+node -v  # Should show v16.14.x
+npm -v   # Should show 8.x.x
+
+# Flutter 3.35.5
+flutter --version  # Should show 3.35.5
+
+# Docker
+docker --version  # Should show 24.x.x
+docker-compose --version  # Should show 2.x.x
+```
+
+### 6. Documentation
 
 - [x] README.md - Tổng quan dự án
 - [x] QUICK_START.md - Hướng dẫn 5 phút
+- [x] VERSION_INSTALLATION_GUIDE.md - Hướng dẫn cài đặt phiên bản
 - [x] SYSTEM_SUMMARY.md - Tóm tắt hệ thống
 - [x] CONFIG_TEMPLATE.md - Hướng dẫn cấu hình
 - [x] DEPLOYMENT_CHECKLIST.md - Checklist deploy
 - [x] FIXED_ISSUES.md - Lỗi đã fix
 - [x] GIT_COMMIT_GUIDE.md - Hướng dẫn commit
 
-### 6. Scripts & Automation
+### 7. Scripts & Automation
 
 - [x] `run-backend.bat` - Chạy backend
 - [x] `run-webapp.bat` - Chạy web app

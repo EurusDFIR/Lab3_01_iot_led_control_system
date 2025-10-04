@@ -1,12 +1,34 @@
 # IoT LED Control System
 
-Hệ thống điều khiển LED ESP32 qua MQTT với Web App và Mobile App - **Ready to Deploy** ✅
+Hệ thống điều khiển LED ESP32 qua MQTT với Web App và## 📖 Tài liệu đầy đủ
+
+| File                                                           | Mô tả                                 | Dành cho     |
+| -------------------------------------------------------------- | ------------------------------------- | ------------ | --------------------------- |
+| [QUICK_START.md](QUICK_START.md)                               | Hướng dẫn chạy nhanh 5 phút           | ⭐ Người mới |
+| [VERSION_INSTALLATION_GUIDE.md](VERSION_INSTALLATION_GUIDE.md) | Hướng dẫn cài đặt phiên bản chính xác | ⭐ Người mới |
+| [CONFIG_TEMPLATE.md](CONFIG_TEMPLATE.md)                       | Template cấu hình IP                  | ⭐ Người mới |
+| [FIXED_ISSUES.md](FIXED_ISSUES.md)                             | Danh sách lỗi đã fix                  | ⭐ Người mới |
+| [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)             | Checklist trước khi push              | 👨‍💻 Developer |
+| [SYSTEM_SUMMARY.md](SYSTEM_SUMMARY.md)                         | Tóm tắt hệ thống                      | 📖 Tham khảo |
+| [SETUP_GUIDE.md](SETUP_GUIDE.md)                               | Hướng dẫn setup đầy đủ                | 📖 Tham khảo | pp - **Ready to Deploy** ✅ |
 
 ## 🎯 Dành cho người mới clone về
 
 **Đọc ngay:** [QUICK_START.md](QUICK_START.md) - Hướng dẫn chạy trong 5 phút
 
 **Các lỗi đã được fix sẵn:** [FIXED_ISSUES.md](FIXED_ISSUES.md) - Không cần lo lắng về Gradle, Docker, hay Dependencies
+
+## 📋 System Requirements (Phiên bản chính xác)
+
+**Quan trọng:** Để đảm bảo tương thích 100%, vui lòng cài đặt chính xác các phiên bản sau:
+
+- **Java**: 17.0.x
+- **Node.js**: 16.14.0+
+- **Flutter**: 3.35.5 (stable)
+- **Docker Desktop**: 4.0+
+- **Arduino IDE**: 2.0+
+
+📖 **Chi tiết cài đặt:** [VERSION_INSTALLATION_GUIDE.md](VERSION_INSTALLATION_GUIDE.md)
 
 ## ⚡ Quick Commands
 
@@ -24,7 +46,7 @@ cd web-app && npm install && npm start
 cd mobile_app_new && flutter clean && flutter pub get && flutter run
 ```
 
-## 📝 Configuration (CHỈ CẦN SỬA 3 FILES)
+## 📝 Configuration (CHỈ CẦN SỬA 1 FILE cho Local Development)
 
 ### 1. Tìm IP máy tính
 
@@ -33,25 +55,21 @@ ipconfig  # Windows
 # Tìm IPv4 Address, ví dụ: 192.168.1.100
 ```
 
-### 2. Cập nhật IP trong 3 files:
+### 2. Cập nhật IP trong ESP32 file:
 
 **ESP32:** `esp32-firmware/esp32_led_control/esp32_led_control.ino`
 
 ```cpp
-const char *mqtt_server = "192.168.1.XXX";  // 👈 Thay IP của bạn
+const char *mqtt_server = "192.168.1.XXX";  // 👈 Thay IP máy tính của bạn
 ```
 
-**Web App:** `web-app/src/services/api.js`
+**💡 Lưu ý:**
 
-```javascript
-const API_BASE_URL = "http://192.168.1.XXX:8080/api"; // 👈 Thay IP của bạn
-```
+- **Web App** đã dùng `localhost:8080` - không cần thay đổi
+- **Mobile App** đã dùng `10.0.2.2:8080` (Android Emulator) - không cần thay đổi
+- **Chỉ ESP32** cần IP thực vì kết nối WiFi và MQTT
 
-**Mobile App:** `mobile_app_new/lib/services/api_service.dart`
-
-```dart
-static const String baseUrl = 'http://192.168.1.XXX:8080/api';  // 👈 Thay IP của bạn
-```
+📖 **Chi tiết cấu hình:** [CONFIG_TEMPLATE.md](CONFIG_TEMPLATE.md)
 
 ## 🚀 Bắt đầu nhanh
 
@@ -119,6 +137,7 @@ ESP32C3 (LED) <--MQTT--> EMQX Broker <--MQTT--> Spring Boot API <--API--> Web (R
 ├── database/            # Docker Compose + SQL scripts
 ├── docs/                # Tài liệu chi tiết
 ├── QUICK_START.md       # 🚀 Bắt đầu đây
+├── VERSION_INSTALLATION_GUIDE.md  # 🔧 Cài đặt phiên bản chính xác
 ├── CONFIG_TEMPLATE.md   # 📝 Cấu hình IP
 ├── FIXED_ISSUES.md      # ✅ Lỗi đã fix
 └── DEPLOYMENT_CHECKLIST.md  # 📦 Checklist deploy

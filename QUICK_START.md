@@ -2,13 +2,112 @@
 
 Hướng dẫn chạy dự án trong 5 phút cho người mới clone về.
 
-## 📋 Yêu cầu hệ thống
+## 📋 Yêu cầu hệ thống (Phiên bản chính xác)
 
-- **Java 17+** (cho Backend)
-- **Node.js 16+** (cho Web App)
-- **Flutter 3.0+** (cho Mobile App)
-- **Docker Desktop** (cho PostgreSQL + EMQX)
-- **Arduino IDE** hoặc **PlatformIO** (cho ESP32)
+### 🔧 **Backend (Spring Boot)**
+
+- **Java**: 17.0.x (chính xác)
+- **Maven**: 3.8+
+- **Spring Boot**: 3.1.5 (tự động từ pom.xml)
+
+### 🌐 **Web App (React)**
+
+- **Node.js**: 16.14.0+ (chính xác - React Scripts 5.0.1 yêu cầu)
+- **npm**: 8.0+ (hoặc yarn 1.22+)
+- **React**: 18.2.0
+
+### 📱 **Mobile App (Flutter)**
+
+- **Flutter**: 3.35.5 (chính xác - channel stable)
+- **Dart**: 3.0.0+ (tự động với Flutter)
+
+### 🐳 **Database & MQTT (Docker)**
+
+- **Docker Desktop**: 4.0+ (hỗ trợ Docker Compose v3.8)
+- **PostgreSQL**: 15 (tự động từ Docker image)
+- **EMQX**: 5.0 (tự động từ Docker image)
+
+### 🔌 **ESP32 Development**
+
+- **Arduino IDE**: 2.0+ (hoặc PlatformIO)
+- **ESP32 Board Package**: 2.0.11+
+
+---
+
+## 📥 **Cách cài đặt nếu không có package manager**
+
+Nếu máy bạn **không có Chocolatey (Windows)**, **Homebrew (macOS)**, hoặc **apt (Ubuntu)**, đừng lo lắng! Xem [VERSION_INSTALLATION_GUIDE.md](VERSION_INSTALLATION_GUIDE.md) để có hướng dẫn download manual cho mọi OS.
+
+---
+
+## 📦 Cài đặt các phiên bản chính xác
+
+### 1. **Cài đặt Java 17**
+
+```bash
+# Windows (Chocolatey)
+choco install openjdk17
+
+# Ubuntu/Debian
+sudo apt update
+sudo apt install openjdk-17-jdk
+
+# macOS (Homebrew)
+brew install openjdk@17
+
+# Verify
+java -version  # Should show 17.x.x
+```
+
+### 2. **Cài đặt Node.js 16**
+
+```bash
+# Windows (Chocolatey)
+choco install nodejs --version=16.14.0
+
+# Ubuntu/Debian
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# macOS (Homebrew)
+brew install node@16
+
+# Verify
+node -v  # Should show v16.14.x
+npm -v   # Should show 8.x.x
+```
+
+### 3. **Cài đặt Flutter 3.35.5**
+
+```bash
+# Download Flutter SDK 3.35.5
+# Windows: https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.35.5-stable.zip
+# macOS: https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_3.35.5-stable.zip
+# Linux: https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.35.5-stable.tar.xz
+
+# Extract and add to PATH
+# Verify
+flutter --version  # Should show 3.35.5
+flutter doctor     # Check all components
+```
+
+### 4. **Cài đặt Docker Desktop**
+
+```bash
+# Download from: https://www.docker.com/products/docker-desktop
+# Version: Latest stable (4.0+)
+
+# Verify
+docker --version      # Should show 24.x.x
+docker-compose --version  # Should show 2.x.x
+```
+
+### 5. **Cài đặt Arduino IDE**
+
+```bash
+# Download Arduino IDE 2.x from: https://www.arduino.cc/en/software
+# Install ESP32 board support as described in Arduino setup section below
+```
 
 ## ⚡ Khởi động nhanh (5 phút)
 

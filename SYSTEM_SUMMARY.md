@@ -37,6 +37,42 @@ cd mobile_app_new && flutter run
 
 ---
 
+## 🔧 Yêu cầu hệ thống (Phiên bản chính xác)
+
+### Backend (Spring Boot)
+
+- **Java**: 17.0.x (chính xác)
+- **Maven**: 3.8+
+- **Spring Boot**: 3.1.5
+
+### Web App (React)
+
+- **Node.js**: 16.14.0+ (chính xác)
+- **npm**: 8.0+
+- **React**: 18.2.0
+
+### Mobile App (Flutter)
+
+- **Flutter**: 3.35.5 (chính xác - stable channel)
+- **Dart**: 3.0.0+
+
+### Database & MQTT (Docker)
+
+- **Docker Desktop**: 4.0+
+- **PostgreSQL**: 15
+- **EMQX**: 5.0
+
+### ESP32 Development
+
+- **Arduino IDE**: 2.0+
+- **ESP32 Board Package**: 2.0.11+
+
+---
+
+## 🏗️ Kiến trúc hệ thống
+
+---
+
 ## 📋 Cấu hình (CHỈ 1 FILE CẦN SỬA cho Local Development)
 
 | #   | File                                           | Dòng | Sửa gì      | Lý do                  |
