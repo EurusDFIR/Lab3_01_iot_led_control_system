@@ -50,4 +50,26 @@ export const deviceService = {
   },
 };
 
+export const sensorDataService = {
+  // Get latest sensor data for device
+  getLatestSensorData: async (deviceId) => {
+    const response = await api.get(`/sensor-data/latest/${deviceId}`);
+    return response.data;
+  },
+
+  // Get sensor data history for device
+  getSensorDataHistory: async (deviceId) => {
+    const response = await api.get(`/sensor-data/history/${deviceId}`);
+    return response.data;
+  },
+
+  // Get sensor data history since timestamp
+  getSensorDataHistorySince: async (deviceId, sinceTimestamp) => {
+    const response = await api.get(`/sensor-data/history/${deviceId}/since`, {
+      params: { since: sinceTimestamp }
+    });
+    return response.data;
+  },
+};
+
 export default api;

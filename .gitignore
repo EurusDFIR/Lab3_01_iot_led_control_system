@@ -50,6 +50,31 @@ mobile-app/ios/Pods/
 mobile-app/ios/Runner.xcworkspace/
 mobile-app/ios/Runner.xcodeproj/xcuserdata/
 
+# Mobile App New (Flutter) - Updated structure
+mobile_app_new/.dart_tool/
+mobile_app_new/.flutter-plugins
+mobile_app_new/.flutter-plugins-dependencies
+mobile_app_new/.packages
+mobile_app_new/.pub-cache/
+mobile_app_new/.pub/
+mobile_app_new/build/
+mobile_app_new/.gradle/
+mobile_app_new/android/.gradle/
+mobile_app_new/android/local.properties
+mobile_app_new/android/app/debug/
+mobile_app_new/android/app/profile/
+mobile_app_new/android/app/release/
+mobile_app_new/android/.idea/
+mobile_app_new/android/*.iml
+mobile_app_new/android/app/*.iml
+mobile_app_new/ios/Flutter/flutter_export_environment.sh
+mobile_app_new/ios/Pods/
+mobile_app_new/ios/Runner.xcworkspace/
+mobile_app_new/ios/Runner.xcodeproj/xcuserdata/
+mobile_app_new/linux/flutter/
+mobile_app_new/macos/Flutter/
+mobile_app_new/windows/flutter/
+
 # Arduino/ESP32
 esp32-firmware/*.bin
 esp32-firmware/*.elf

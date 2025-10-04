@@ -1,41 +1,57 @@
 /*
- * IoT LED Control System - ESP32C3 Firmware
+ * IoT LED Control System with DHT11 Sensor
+ * ESP32C3 LED Pin: GPIO8 (built-in LED)
+ * DHT11 Pin: GPIO2 (GP2)
  *
- * Chức năng:
- * - Kết nối WiFi
- * - Kết nối MQTT Broker (EMQX)
- * - Subscribe topic điều khiển LED
- * - Publish trạng thái LED
- * - Điều khiển LED tích hợp trên ESP32C3
- *
- * ESP32C3 LED Pin: GPIO8 (LED tích hợp)
+ * Features:
+ * - Connect to WiFi
+ * - Connect to MQTT Broker (EMQX)
+ * - Subscribe to LED control topic
+ * - Publish LED status
+ * - Control built-in LED on ESP32C3
+ * - Read DHT11 sensor (temperature, humidity)
+ * - Publish sensor data
  */
+
+// Uncomment the line below to use fake sensor data for testing
+// #define USE_FAKE_SENSOR_DATA
 
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
+#include <DHT.h>
 
-// ===== CẤU HÌNH WIFI =====
-const char *ssid = "LE HUNG";       // ✅ Tên WiFi của bạn
-const char *password = "123456789"; // ✅ Mật khẩu WiFi
+// ===== WIFI CONFIGURATION =====
+const char *ssid = "YOUR_WIFI_SSID";         // 👈 Thay tên WiFi của bạn
+const char *password = "YOUR_WIFI_PASSWORD"; // 👈 Thay mật khẩu WiFi
 
-// ===== CẤU HÌNH MQTT =====
-// ⚠️ QUAN TRỌNG: Thay IP này bằng IP máy tính chạy EMQX
-// Cách tìm IP: Mở CMD → gõ "ipconfig" → tìm IPv4 Address
-// VD: 192.168.1.25, 192.168.0.105, 10.0.0.15, etc.
-const char *mqtt_server = "192.168.1.10"; // 👈 ĐỔI IP NÀY!
+// ===== MQTT CONFIGURATION =====
+// IMPORTANT: Replace this IP with the IP of your computer running EMQX
+// How to find IP: Open CMD → type "ipconfig" → find IPv4 Address
+// Example: 192.168.1.25, 192.168.0.105, 10.0.0.15, etc.
+const char *mqtt_server = "192.168.1.XXX"; // 👈 THAY IP MÁY TÍNH CỦA BẠN!
 const int mqtt_port = 1883;
-const char *mqtt_user = "admin";       // Username EMQX
-const char *mqtt_password = "public";  // Password EMQX
-const char *client_id = "ESP32C3_001"; // Device ID (phải khớp với DB)
+const char *mqtt_user = "admin";       // EMQX username
+const char *mqtt_password = "public";  // EMQX password
+const char *client_id = "ESP32C3_001"; // Device ID (must match DB)
 
 // MQTT Topics
 const char *topic_control = "esp32/led/control";
 const char *topic_status = "esp32/led/status";
+const char *topic_sensor = "esp32/sensor/data";
 
-// ===== CẤU HÌNH LED =====
-#define LED_PIN 8 // LED tích hợp trên ESP32C3 (GPIO8)
+// ===== LED CONFIGURATION =====
+#define LED_PIN 8 // Built-in LED on ESP32C3 (GPIO8)
 bool ledState = false;
+
+// ===== DHT11 CONFIGURATION =====
+#define DHT_PIN 2 // GPIO2 for DHT11 (GP2)
+#define DHT_TYPE DHT11
+DHT dht(DHT_PIN, DHT_TYPE);
+
+// Timer cho sensor
+unsigned long lastSensorTime = 0;
+const unsigned long sensorInterval = 5000; // 5 giây
 
 // WiFi và MQTT Client
 WiFiClient espClient;
@@ -173,6 +189,53 @@ void publishStatus(const char *status)
     }
 }
 
+// ===== HÀM PUBLISH DỮ LIỆU SENSOR =====
+void publishSensorData()
+{
+    float temperature, humidity;
+
+#ifdef USE_FAKE_SENSOR_DATA
+    // Sử dụng dữ liệu giả lập để test hệ thống
+    temperature = 25.0 + random(-5, 5); // 20-30°C
+    humidity = 60.0 + random(-10, 10);  // 50-70%
+    Serial.println("Using FAKE sensor data for testing:");
+#else
+    // Đọc từ DHT11 thật
+    temperature = dht.readTemperature();
+    humidity = dht.readHumidity();
+
+    if (isnan(temperature) || isnan(humidity))
+    {
+        Serial.println("Failed to read from DHT sensor!");
+        return;
+    }
+#endif
+
+    Serial.print("Temperature: ");
+    Serial.println(temperature);
+    Serial.print("Humidity: ");
+    Serial.println(humidity);
+
+    StaticJsonDocument<200> doc;
+    doc["deviceId"] = client_id;
+    doc["temperature"] = temperature;
+    doc["humidity"] = humidity;
+    doc["timestamp"] = millis();
+
+    char buffer[256];
+    serializeJson(doc, buffer);
+
+    if (mqttClient.publish(topic_sensor, buffer))
+    {
+        Serial.print("Sensor data published: ");
+        Serial.println(buffer);
+    }
+    else
+    {
+        Serial.println("Failed to publish sensor data");
+    }
+}
+
 // ===== SETUP =====
 void setup()
 {
@@ -188,6 +251,9 @@ void setup()
     pinMode(LED_PIN, OUTPUT);
     digitalWrite(LED_PIN, HIGH); // LED tắt ban đầu (active LOW)
     ledState = false;
+
+    // Khởi tạo DHT11
+    dht.begin();
 
     // Kết nối WiFi
     setupWiFi();
@@ -216,5 +282,12 @@ void loop()
         lastHeartbeat = millis();
         publishStatus(ledState ? "ON" : "OFF");
         Serial.println("Heartbeat sent");
+    }
+
+    // Publish sensor data mỗi 5 giây
+    if (millis() - lastSensorTime > sensorInterval)
+    {
+        lastSensorTime = millis();
+        publishSensorData();
     }
 }

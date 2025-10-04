@@ -42,11 +42,23 @@ CREATE TABLE IF NOT EXISTS device_status_history (
     FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE CASCADE
 );
 
+-- Table: sensor_data
+CREATE TABLE IF NOT EXISTS sensor_data (
+    id SERIAL PRIMARY KEY,
+    device_id VARCHAR(100) NOT NULL,
+    temperature REAL NOT NULL,
+    humidity REAL NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (device_id) REFERENCES devices(device_id) ON DELETE CASCADE
+);
+
 -- Index for better query performance
 CREATE INDEX idx_device_commands_device_id ON device_commands(device_id);
 CREATE INDEX idx_device_commands_created_at ON device_commands(created_at);
 CREATE INDEX idx_device_status_history_device_id ON device_status_history(device_id);
 CREATE INDEX idx_device_status_history_timestamp ON device_status_history(timestamp);
+CREATE INDEX idx_sensor_data_device_id ON sensor_data(device_id);
+CREATE INDEX idx_sensor_data_timestamp ON sensor_data(timestamp);
 
 -- Insert sample device (ESP32C3 với LED tích hợp)
 INSERT INTO devices (device_id, device_name, device_type, description, mqtt_topic_control, mqtt_topic_status, status)

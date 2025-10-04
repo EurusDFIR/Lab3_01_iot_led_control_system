@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: iotuser
+      POSTGRES_PASSWORD: iotpass
+      POSTGRES_DB: iotdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    networks:
+      - iot_network
+
+  emqx:
+    image: emqx/emqx:5.0
+    container_name: emqx
+    environment:
+      EMQX_DASHBOARD__DEFAULT_USERNAME: admin
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: public
+    ports:
+      - "1883:1883"   # MQTT
+      - "8083:8083"   # WS MQTT
+      - "8084:8084"   # WSS MQTT
+      - "8883:8883"   # MQTTS
+      - "18083:18083" # Dashboard
+    volumes:
+      - emqx_data:/opt/emqx/data
+    restart: unless-stopped
+    networks:
+      - iot_network
+
+volumes:
+  postgres_data:
+  emqx_data:
+
+networks:
+  iot_network:
+    driver: bridge

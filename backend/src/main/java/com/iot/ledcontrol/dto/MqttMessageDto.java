@@ -11,4 +11,6 @@ public class MqttMessageDto {
     private String deviceId;
     private String command; // ON, OFF, ONLINE, OFFLINE
     private String timestamp;
+    private Float temperature;
+    private Float humidity;
 }

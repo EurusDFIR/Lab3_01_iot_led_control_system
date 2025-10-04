@@ -37,6 +37,9 @@ public class MqttService {
     private DeviceStatusHistoryRepository statusHistoryRepository;
 
     @Autowired
+    private SensorDataService sensorDataService;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     /**
@@ -77,6 +80,8 @@ public class MqttService {
             // Process based on topic
             if (topic != null && topic.contains("/status")) {
                 handleStatusMessage(mqttMessage);
+            } else if (topic != null && topic.contains("/sensor/data")) {
+                handleSensorMessage(mqttMessage);
             }
 
         } catch (Exception e) {
@@ -115,6 +120,27 @@ public class MqttService {
 
         } catch (Exception e) {
             log.error("Error handling status message: {}", e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Handle sensor data messages from devices
+     */
+    private void handleSensorMessage(MqttMessageDto mqttMessage) {
+        try {
+            String deviceId = mqttMessage.getDeviceId();
+            Float temperature = mqttMessage.getTemperature();
+            Float humidity = mqttMessage.getHumidity();
+
+            log.info("Processing sensor data for device {}: temp={}, hum={}", deviceId, temperature, humidity);
+
+            // Save sensor data to database
+            sensorDataService.saveSensorData(deviceId, temperature, humidity);
+
+            log.info("Sensor data saved successfully");
+
+        } catch (Exception e) {
+            log.error("Error handling sensor message: {}", e.getMessage(), e);
         }
     }
 

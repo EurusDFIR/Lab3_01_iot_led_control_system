@@ -1,59 +1,96 @@
 # IoT LED Control System
 
-Hệ thống điều khiển LED trên ESP32C3 qua MQTT với Web và Mobile App
+Hệ thống điều khiển LED ESP32 qua MQTT với Web App và Mobile App - **Ready to Deploy** ✅
+
+## 🎯 Dành cho người mới clone về
+
+**Đọc ngay:** [QUICK_START.md](QUICK_START.md) - Hướng dẫn chạy trong 5 phút
+
+**Các lỗi đã được fix sẵn:** [FIXED_ISSUES.md](FIXED_ISSUES.md) - Không cần lo lắng về Gradle, Docker, hay Dependencies
+
+## ⚡ Quick Commands
+
+```bash
+# 1. Start Docker (PostgreSQL + EMQX)
+cd database && docker-compose up -d
+
+# 2. Start Backend
+cd backend && mvn spring-boot:run
+
+# 3. Start Web App
+cd web-app && npm install && npm start
+
+# 4. Start Mobile App (lần đầu)
+cd mobile_app_new && flutter clean && flutter pub get && flutter run
+```
+
+## 📝 Configuration (CHỈ CẦN SỬA 3 FILES)
+
+### 1. Tìm IP máy tính
+
+```bash
+ipconfig  # Windows
+# Tìm IPv4 Address, ví dụ: 192.168.1.100
+```
+
+### 2. Cập nhật IP trong 3 files:
+
+**ESP32:** `esp32-firmware/esp32_led_control/esp32_led_control.ino`
+
+```cpp
+const char *mqtt_server = "192.168.1.XXX";  // 👈 Thay IP của bạn
+```
+
+**Web App:** `web-app/src/services/api.js`
+
+```javascript
+const API_BASE_URL = "http://192.168.1.XXX:8080/api"; // 👈 Thay IP của bạn
+```
+
+**Mobile App:** `mobile_app_new/lib/services/api_service.dart`
+
+```dart
+static const String baseUrl = 'http://192.168.1.XXX:8080/api';  // 👈 Thay IP của bạn
+```
 
 ## 🚀 Bắt đầu nhanh
 
 **Người mới bắt đầu?** Làm theo thứ tự:
 
-1. **Tìm IP máy tính:**
+1. **Khởi động nhanh:**
+   📖 Xem: [QUICK_START.md](QUICK_START.md) - Hướng dẫn 5 phút
 
-   ```bash
-   find-ip.bat
-   ```
+2. **Cấu hình IP:**
+   📖 Xem: [CONFIG_TEMPLATE.md](CONFIG_TEMPLATE.md) - Template sửa IP
 
-   📖 Hoặc xem: [IP_CONFIG_SUMMARY.md](IP_CONFIG_SUMMARY.md)
+3. **Các lỗi đã fix:**
+   📖 Xem: [FIXED_ISSUES.md](FIXED_ISSUES.md) - Không lo lắng về bugs
 
-2. **Setup hệ thống:**
-   📖 Xem: [QUICKSTART.md](QUICKSTART.md) - Hướng dẫn từng bước
+4. **Deployment:**
+   📖 Xem: [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) - Checklist push lên Git
 
-3. **Cấu hình chi tiết:**
+5. **Setup chi tiết:**
    📖 Xem: [SETUP_GUIDE.md](SETUP_GUIDE.md) - Hướng dẫn đầy đủ
 
-4. **Demo:**
-   📖 Xem: [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) - Kịch bản demo
+## � Tài liệu đầy đủ
 
-## ⚙️ Cấu hình IP (QUAN TRỌNG!)
+| File                                               | Mô tả                       | Dành cho     |
+| -------------------------------------------------- | --------------------------- | ------------ |
+| [QUICK_START.md](QUICK_START.md)                   | Hướng dẫn chạy nhanh 5 phút | ⭐ Người mới |
+| [CONFIG_TEMPLATE.md](CONFIG_TEMPLATE.md)           | Template cấu hình IP        | ⭐ Người mới |
+| [FIXED_ISSUES.md](FIXED_ISSUES.md)                 | Danh sách lỗi đã fix        | ⭐ Người mới |
+| [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) | Checklist trước khi push    | 👨‍💻 Developer |
+| [SETUP_GUIDE.md](SETUP_GUIDE.md)                   | Hướng dẫn setup đầy đủ      | 📖 Tham khảo |
 
-Bạn ĐÃ cập nhật WiFi trong ESP32 ✅, còn cần:
+## ✨ Điểm nổi bật
 
-### Bước 1: Tìm IP máy tính
+✅ **Sẵn sàng deploy** - Tất cả lỗi Gradle đã được fix sẵn
+✅ **Dễ dàng setup** - Chỉ cần sửa IP ở 3 files
+✅ **Docker ready** - PostgreSQL + EMQX một lệnh khởi động
+✅ **Cross-platform** - Web, Mobile, ESP32 đều hoạt động
+✅ **Well documented** - Tài liệu đầy đủ và rõ ràng
 
-```bash
-# Chạy script:
-find-ip.bat
-
-# Hoặc thủ công:
-ipconfig
-# Tìm IPv4 Address
-```
-
-### Bước 2: Cập nhật 2 file
-
-1. **ESP32:** `esp32-firmware/esp32_led_control.ino` - Line 26
-
-   ```cpp
-   const char *mqtt_server = "192.168.1.XX"; // 👈 Đổi IP
-   ```
-
-2. **Mobile:** `mobile-app/lib/services/api_service.dart` - Line 9
-   ```dart
-   static const String baseUrl = 'http://192.168.1.XX:8080/api'; // 👈 Đổi IP
-   ```
-
-📖 **Chi tiết:** [IP_CONFIGURATION_GUIDE.md](IP_CONFIGURATION_GUIDE.md)
-
-## Kiến trúc hệ thống
+## 🎯 Kiến trúc hệ thống
 
 ```
 ESP32C3 (LED) <--MQTT--> EMQX Broker <--MQTT--> Spring Boot API <--API--> Web (ReactJS) + Mobile (Flutter)
@@ -61,26 +98,30 @@ ESP32C3 (LED) <--MQTT--> EMQX Broker <--MQTT--> Spring Boot API <--API--> Web (R
                                                    PostgreSQL
 ```
 
-## Công nghệ sử dụng
+## 💻 Công nghệ sử dụng
 
 - **Backend**: Java Spring Boot + Spring Integration MQTT (Paho)
-- **Database**: PostgreSQL (DB: iot_led_control)
-- **MQTT Broker**: EMQX
+- **Database**: PostgreSQL + Docker
+- **MQTT Broker**: EMQX (Docker)
 - **Web Frontend**: ReactJS
-- **Mobile App**: Flutter
-- **Hardware**: ESP32C3 với LED tích hợp
-- **Tools**: MQTTX Client, Arduino IDE, VSCode, Android Studio
+- **Mobile App**: Flutter (với core library desugaring ✅)
+- **Hardware**: ESP32C3 với LED tích hợp + DHT11
+- **Tools**: Docker, Maven, npm, Arduino IDE
 
-## Cấu trúc thư mục
+## 📁 Cấu trúc thư mục
 
 ```
 3_01/
-├── backend/           # Spring Boot API
-├── web-app/          # ReactJS Web Application
-├── mobile-app/       # Flutter Mobile Application
-├── esp32-firmware/   # Arduino code cho ESP32C3
-├── database/         # SQL scripts
-└── docs/            # Tài liệu
+├── backend/              # Spring Boot API
+├── web-app/             # ReactJS Web Application
+├── mobile_app_new/      # Flutter Mobile App ✅ Gradle fixed
+├── esp32-firmware/      # Arduino code cho ESP32C3
+├── database/            # Docker Compose + SQL scripts
+├── docs/                # Tài liệu chi tiết
+├── QUICK_START.md       # 🚀 Bắt đầu đây
+├── CONFIG_TEMPLATE.md   # 📝 Cấu hình IP
+├── FIXED_ISSUES.md      # ✅ Lỗi đã fix
+└── DEPLOYMENT_CHECKLIST.md  # 📦 Checklist deploy
 ```
 
 ## Setup Instructions
