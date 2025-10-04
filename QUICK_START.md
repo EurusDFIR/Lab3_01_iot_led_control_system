@@ -40,29 +40,22 @@ ipconfig
 # Tìm dòng IPv4 Address (ví dụ: 192.168.1.100)
 ```
 
-### Bước 4: Cập nhật IP trong các file
+### Bước 4: Cập nhật IP trong ESP32
 
-**📝 CHỈ CẦN SỬA 3 FILE:**
+**📝 CHỈ CẦN SỬA 1 FILE (cho local development):**
 
-1. **ESP32:** `esp32-firmware/esp32_led_control/esp32_led_control.ino`
+**ESP32:** `esp32-firmware/esp32_led_control/esp32_led_control.ino`
 
-   ```cpp
-   // Dòng ~26-28
-   const char *mqtt_server = "192.168.1.XXX";  // 👈 Thay IP của bạn
-   ```
+```cpp
+// Dòng ~30
+const char *mqtt_server = "192.168.1.XXX";  // 👈 Thay IP máy tính của bạn
+```
 
-2. **Web App:** `web-app/src/services/api.js`
+**💡 Lưu ý quan trọng:**
 
-   ```javascript
-   // Dòng ~1
-   const API_BASE_URL = "http://192.168.1.XXX:8080/api"; // 👈 Thay IP của bạn
-   ```
-
-3. **Mobile App:** `mobile_app_new/lib/services/api_service.dart`
-   ```dart
-   // Dòng ~4
-   static const String baseUrl = 'http://192.168.1.XXX:8080/api';  // 👈 Thay IP của bạn
-   ```
+- **Web App** đã dùng `localhost:8080` - không cần thay đổi
+- **Mobile App** đã dùng `10.0.2.2:8080` (IP đặc biệt cho Android Emulator) - không cần thay đổi
+- **Chỉ ESP32** cần IP thực vì kết nối WiFi và MQTT qua mạng
 
 ### Bước 5: Chạy Backend (Spring Boot)
 

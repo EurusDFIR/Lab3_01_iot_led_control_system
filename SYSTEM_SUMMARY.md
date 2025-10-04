@@ -37,15 +37,17 @@ cd mobile_app_new && flutter run
 
 ---
 
-## 📋 Cấu hình (CHỈ 3 FILES CẦN SỬA)
+## 📋 Cấu hình (CHỈ 1 FILE CẦN SỬA cho Local Development)
 
-| #   | File                                           | Dòng | Sửa gì      |
-| --- | ---------------------------------------------- | ---- | ----------- |
-| 1   | `esp32-firmware/.../esp32_led_control.ino`     | ~26  | IP máy tính |
-| 2   | `web-app/src/services/api.js`                  | ~1   | IP máy tính |
-| 3   | `mobile_app_new/lib/services/api_service.dart` | ~4   | IP máy tính |
+| #   | File                                           | Dòng | Sửa gì      | Lý do                  |
+| --- | ---------------------------------------------- | ---- | ----------- | ---------------------- |
+| 1   | `esp32-firmware/.../esp32_led_control.ino`     | ~30  | IP máy tính | ESP32 kết nối WiFi     |
+| ✅  | `web-app/src/services/api.js`                  | -    | localhost   | Đã config sẵn          |
+| ✅  | `mobile_app_new/lib/services/api_service.dart` | -    | 10.0.2.2    | Đã config cho emulator |
 
 **Tìm IP:** Chạy `ipconfig` (Windows) hoặc `ifconfig` (Linux/Mac)
+
+**💡 Lưu ý:** Web App và Mobile App đã được config sẵn cho local development!
 
 ---
 
